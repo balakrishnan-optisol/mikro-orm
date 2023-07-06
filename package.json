@@ -1,8 +1,9 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "mikro-orm",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "author": "Balakrishnan P",
+  "description": "Nestjs framework TypeScript with MikroORM",
   "license": "MIT",
   "scripts": {
     "build": "nest build",
