@@ -7,7 +7,7 @@ import { UserService } from './module/user.service';
 
 import { UserController } from './module/user.controller';
 import { DatabaseConnectionFactory } from './database/database-connection.factory';
-import { CommonModule } from './module/common/common.module';
+import { CommonModule, entities } from './module/common/common.module';
 
 @Module({
   imports: [
@@ -18,6 +18,7 @@ import { CommonModule } from './module/common/common.module';
     MikroOrmModule.forRootAsync({
       useClass: DatabaseConnectionFactory
     }),
+    MikroOrmModule.forFeature(entities),
     CommonModule
   ],
   controllers: [UserController],
