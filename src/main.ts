@@ -1,13 +1,14 @@
 import helmet from 'helmet';
-// import YAML from 'yamljs';
-// import path from 'path';
+import YAML from 'yamljs';
+import path from 'path';
 
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
-// import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
+import { OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+import { TransformInterceptor } from './app/interceptor/transform.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -22,6 +23,8 @@ async function bootstrap() {
     })
   );
 
+  app.useGlobalInterceptors(new TransformInterceptor());
+
   app.enableCors({
     origin: '*'
   });
@@ -29,17 +32,17 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  // const swaggerDocument: OpenAPIObject = YAML.load(path.join(__dirname, 'assets/user.yaml'));
+  const swaggerDocument: OpenAPIObject = YAML.load(path.join(__dirname, 'assets/user.yaml'));
 
-  // swaggerDocument.servers = [
-  //   {
-  //     description: configService.get('ENVIRONMENT'),
-  //     url: configService.get('API_BASE_URL')
-  //   }
-  // ];
-  // SwaggerModule.setup('users/docs', app, swaggerDocument, {
-  //   useGlobalPrefix: true
-  // });
+  swaggerDocument.servers = [
+    {
+      description: configService.get('ENVIRONMENT'),
+      url: configService.get('API_BASE_URL')
+    }
+  ];
+  SwaggerModule.setup('users/docs', app, swaggerDocument, {
+    useGlobalPrefix: true
+  });
 
   app.use(helmet());
 

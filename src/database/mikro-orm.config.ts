@@ -5,8 +5,8 @@ export default {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   dbName: process.env.DB_NAME,
-  entities: ['./dist/entities/**/*.ts'],
-  entitiesTs: ['./src/entities/**/*.ts'],
+  entities: ['./dist/app/entities/**/*.ts'],
+  entitiesTs: ['./src/app/entities/**/*.ts'],
   autoLoadEntities: true,
   migrations: {
     tableName: 'migration',

@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: Swagger
+  version: 1.0.0
+tags:
+  - name: User
+paths:
+  /users:
+    post:
+      tags:
+        - User
+      summary: Add User
+      description: Add User
+      requestBody:
+        description: Add User
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUser"
+            examples:
+              Request:
+                $ref: "#/components/examples/CreateUserRequest"
+        required: true
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                Response:
+                  $ref: "#/components/examples/CreateUserRespone"
+        "401":
+          description: Non Successful operation
+          content:
+            application/json:
+              examples:
+                Response:
+                  $ref: "#/components/examples/UnauthorizedResponse401"
+        "500":
+          description: Non Successful operation
+          content:
+            application/json:
+              examples:
+                Error500:
+                  $ref: "#/components/examples/Error500"
+    get:
+      tags:
+        - User
+      summary: List User
+      description: List User
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              examples:
+                Response:
+                  $ref: "#/components/examples/ListUser"
+        "401":
+          description: Non Successful operation
+          content:
+            application/json:
+              examples:
+                Response:
+                  $ref: "#/components/examples/UnauthorizedResponse401"
+        "500":
+          description: Non Successful operation
+          content:
+            application/json:
+              examples:
+                Error500:
+                  $ref: "#/components/examples/Error500"
+components:
+  schemas:
+    AddUser:
+      type: object
+      required:
+        - "first_name"
+        - "last_name"
+        - "email"
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+      example:
+        first_name: "Bala"
+        last_name: "P"
+        email: "bala.p@yopmail.com"
+  examples:
+    Error500:
+      value:
+        code: 500
+        message: "Internal Server Error"
+    UnauthorizedResponse401:
+      value:
+        code: 401
+        message: Unauthorized
+    ListUser:
+      value:
+        code: 200
+        data: []
+    CreateUserRequest:
+      value:
+        first_name: "Bala"
+        last_name: "P"
+        email: "bala.p@yopmail.com"
+    CreateUserRespone:
+      value:
+        code: 201
+        data:
+          id: 1
+          first_name: "Bala"
+          last_name: "P"
+          email: "bala.p@yopmail.com"

@@ -2,12 +2,14 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 
-import { UserService } from './module/user.service';
+import { UserService } from './app/module/user.service';
 
-import { UserController } from './module/user.controller';
+import { UserController } from './app/module/user.controller';
 import { DatabaseConnectionFactory } from './database/database-connection.factory';
-import { CommonModule, entities } from './module/common/common.module';
+import { CommonModule, entities } from './app/module/common/common.module';
+import { AllExceptionsFilter } from './app/filter/all-exception.filter';
 
 @Module({
   imports: [
@@ -22,6 +24,12 @@ import { CommonModule, entities } from './module/common/common.module';
     CommonModule
   ],
   controllers: [UserController],
-  providers: [UserService]
+  providers: [
+    UserService,
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter
+    }
+  ]
 })
 export class AppModule {}

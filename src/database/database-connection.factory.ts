@@ -15,8 +15,8 @@ export class DatabaseConnectionFactory implements MikroOrmOptionsFactory {
       user: this.configService.get('DB_USER'),
       password: this.configService.get('DB_PASSWORD'),
       dbName: this.configService.get('DB_NAME'),
-      entities: ['./dist/entities/**/*.ts'],
-      entitiesTs: ['./src/entities/**/*.ts'],
+      entities: ['./dist/app/entities/**/*.ts'],
+      entitiesTs: ['./src/app/entities/**/*.ts'],
       autoLoadEntities: true,
       migrations: {
         tableName: 'migration',
